@@ -1,0 +1,42 @@
+{{define "content"}}
+<h1>Courses</h1>
+<form method="get" action="/courses" class="row g-2 mb-3">
+  <div class="col-auto"><input type="text" name="q" class="form-control" placeholder="Search" value="{{.Query}}"></div>
+  <div class="col-auto"><button type="submit" class="btn btn-primary">Search</button></div>
+</form>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Subject</th>
+    <th>Keywords</th>
+    <th>Exams</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {{range .Courses}}
+  <tr>
+    <td><a href="/courses/{{.ID}}" class="btn btn-default btn-sm">{{.Name}}</a></td>
+    <td>{{.Identifier}}</td>
+    <td>{{if .Subject}}<a href="/subjects/{{.Subject.ID}}">{{.Subject.Name}}</a>{{end}}</td>
+    <td>{{.Keywords}}</td>
+    <td>{{.ExamCount}}</td>
+    {{if $.CanManage}}
+    <td><a href="/courses/{{.ID}}/edit" class="btn btn-warning btn-sm">Edit</a></td>
+    <td>
+      <form method="post" action="/courses/{{.ID}}/delete">{{$.CSRFField}}
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Destroy</button>
+      </form>
+    </td>
+    {{else}}<td></td><td></td>{{end}}
+  </tr>
+  {{else}}
+  <tr><td colspan="7">No courses found.</td></tr>
+  {{end}}
+</table>
+
+{{template "pagination" .}}
+
+{{if .User}}<a href="/courses/new">New Course</a>{{end}}
+{{end}}

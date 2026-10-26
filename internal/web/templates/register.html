@@ -1,0 +1,28 @@
+{{define "content"}}
+<h2>Sign up</h2>
+
+{{template "errors" .}}
+
+<form method="post" action="/register">
+  {{.CSRFField}}
+  <div class="mb-3">
+    <label class="form-label" for="organization">Organization</label>
+    <input type="text" class="form-control" id="organization" name="organization" autofocus required>
+    <div class="form-text">The Student Organization you represent, e.g. TKO-äly ry.</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="password">Password (min. 8 characters)</label>
+    <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" minlength="8" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="password_confirmation">Password confirmation</label>
+    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="new-password" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign up</button>
+  <a href="/login" class="btn btn-link">Log in</a>
+</form>
+{{end}}

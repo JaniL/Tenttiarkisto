@@ -1,0 +1,44 @@
+{{define "content"}}
+<h1>
+  {{.Course.Name}}
+  {{if .Course.Identifier}}<small class="text-muted">{{.Course.Identifier}}</small>{{end}}
+  {{if .Course.Keywords}}<small class="text-muted">{{.Course.Keywords}}</small>{{end}}
+</h1>
+
+{{if .CanManage}}
+<a href="/courses/{{.Course.ID}}/edit" class="btn btn-primary">Edit</a>
+{{end}}
+
+<h3>Exams</h3>
+
+{{if not .Exams}}
+<p>No exams available</p>
+{{else}}
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Language</th>
+    <th>Author</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {{range .Exams}}
+  <tr>
+    <td><a href="/exams/{{.ID}}">{{.DateStr}}</a></td>
+    <td>{{.LanguageStr}}</td>
+    <td>{{.Author}}</td>
+    <td>{{.Description}}</td>
+    {{if $.CanManage}}
+    <td><a href="/exams/{{.ID}}/edit" class="btn btn-warning btn-sm">Edit</a></td>
+    <td>
+      <form method="post" action="/exams/{{.ID}}/delete">{{$.CSRFField}}
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Destroy</button>
+      </form>
+    </td>
+    {{else}}<td></td><td></td>{{end}}
+  </tr>
+  {{end}}
+</table>
+{{end}}
+{{end}}

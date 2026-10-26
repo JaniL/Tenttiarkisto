@@ -1,0 +1,15 @@
+{{define "content"}}
+<h1>{{if .Subject}}Edit{{else}}New{{end}} Subject</h1>
+
+{{template "errors" .}}
+
+<form method="post" action="{{if .Subject}}/subjects/{{.Subject.ID}}/update{{else}}/subjects{{end}}">
+  {{.CSRFField}}
+  <div class="mb-3">
+    <label class="form-label" for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{if .Subject}}{{.Subject.Name}}{{end}}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="/subjects" class="btn btn-link">Back</a>
+</form>
+{{end}}

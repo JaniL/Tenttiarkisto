@@ -1,0 +1,14 @@
+{{define "content"}}
+<p><strong>Language:</strong> {{.Exam.LanguageStr}}</p>
+<p><strong>Date:</strong> {{.Exam.DateStr}}</p>
+<p><strong>Description:</strong> {{.Exam.Description}}</p>
+<p><strong>Author:</strong> {{.Exam.Author}}</p>
+<p>
+  {{if .Exam.Filepath}}
+  <strong><a href="/exams/{{.Exam.ID}}/file">{{.FileName}}</a></strong>
+  {{end}}
+</p>
+{{if .CanManage}}
+<a href="/exams/{{.Exam.ID}}/edit" class="btn btn-primary btn-sm">Edit</a>
+{{end}}
+{{end}}

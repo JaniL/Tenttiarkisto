@@ -1,0 +1,33 @@
+{{define "content"}}
+<h2>Edit account</h2>
+
+{{template "errors" .}}
+
+<form method="post" action="/account">
+  {{.CSRFField}}
+  <div class="mb-3">
+    <label class="form-label" for="organization">Organization</label>
+    <input type="text" class="form-control" id="organization" name="organization" value="{{.User.Organization}}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" value="{{.User.Email}}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="password">New password <i>(leave blank to keep current)</i></label>
+    <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" minlength="8">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="current_password">Current password</label>
+    <input type="password" class="form-control" id="current_password" name="current_password" autocomplete="current-password">
+    <div class="form-text">Required only when changing the password.</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+{{if .IsSuperAdmin}}
+<h3 class="mt-4">Subjects you manage</h3>
+{{range .UserSubjects}}<p>{{.Name}}</p>{{end}}
+{{if not .UserSubjects}}<p>No subjects selected (a super admin can assign them).</p>{{end}}
+{{end}}
+{{end}}

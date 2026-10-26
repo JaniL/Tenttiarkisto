@@ -1,0 +1,30 @@
+{{define "pagination"}}
+{{if gt .TotalPages 1}}
+<nav aria-label="Pages">
+  <ul class="pagination">
+    <li class="page-item {{if le .Page 1}}disabled{{end}}">
+      <a class="page-link" href="{{.Action}}?q={{.Query}}&page={{.PrevPage}}" aria-label="Previous">&laquo;</a>
+    </li>
+    {{range .PageNumbers}}
+    <li class="page-item {{if eq . $.Page}}active{{end}}">
+      <a class="page-link" href="{{$.Action}}?q={{$.Query}}&page={{.}}">{{.}}</a>
+    </li>
+    {{end}}
+    <li class="page-item {{if ge .Page .TotalPages}}disabled{{end}}">
+      <a class="page-link" href="{{.Action}}?q={{.Query}}&page={{.NextPage}}" aria-label="Next">&raquo;</a>
+    </li>
+  </ul>
+</nav>
+{{end}}
+{{end}}
+
+{{define "errors"}}
+{{if .Errors}}
+<div class="alert alert-danger" id="error_explanation">
+  <h4 class="alert-heading">{{len .Errors}} error(s) prohibited this from being saved:</h4>
+  <ul class="mb-0">
+    {{range .Errors}}<li>{{.}}</li>{{end}}
+  </ul>
+</div>
+{{end}}
+{{end}}

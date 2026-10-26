@@ -1,0 +1,47 @@
+{{define "content"}}
+{{if .IsSuperAdmin}}
+<a href="/subjects/{{.Subject.ID}}/edit" class="btn btn-primary">Edit</a>
+{{end}}
+
+<h2>{{.Subject.Name}}</h2>
+
+<form method="get" action="/subjects/{{.Subject.ID}}" class="row g-2 mb-3">
+  <div class="col-auto"><input type="text" name="q" class="form-control" placeholder="Search" value="{{.Query}}"></div>
+  <div class="col-auto"><button type="submit" class="btn btn-primary">Search</button></div>
+</form>
+
+{{if not .Courses}}
+<p>No courses available</p>
+{{else}}
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Keywords</th>
+    <th>Exams</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {{range .Courses}}
+  <tr>
+    <td><a href="/courses/{{.ID}}" class="btn btn-default btn-sm">{{.Name}}</a></td>
+    <td>{{.Identifier}}</td>
+    <td>{{.Keywords}}</td>
+    <td>{{.ExamCount}}</td>
+    {{if $.CanManage}}
+    <td><a href="/courses/{{.ID}}/edit" class="btn btn-warning btn-sm">Edit</a></td>
+    <td>
+      <form method="post" action="/courses/{{.ID}}/delete">{{$.CSRFField}}
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Destroy</button>
+      </form>
+    </td>
+    {{else}}<td></td><td></td>{{end}}
+  </tr>
+  {{end}}
+</table>
+{{end}}
+
+{{template "pagination" .}}
+
+{{if .User}}<a href="/courses/new">New Course</a>{{end}}
+{{end}}

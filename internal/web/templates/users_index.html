@@ -1,0 +1,33 @@
+{{define "content"}}
+<h1>Listing Users</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Email</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Users}}
+    <tr>
+      <td><a href="/users/{{.ID}}" class="btn btn-primary btn-sm">{{.Organization}}</a></td>
+      <td>{{.Email}}{{if .IsSuperAdmin}} <span class="badge text-bg-dark">super admin</span>{{end}}</td>
+      <td><a href="/users/{{.ID}}/edit">Edit</a></td>
+      <td>
+        <form method="post" action="/users/{{.ID}}/delete">{{$.CSRFField}}
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Destroy</button>
+        </form>
+      </td>
+    </tr>
+    {{else}}
+    <tr><td colspan="4">No users.</td></tr>
+    {{end}}
+  </tbody>
+</table>
+
+<br>
+<a href="/users/new">New User</a>
+{{end}}

@@ -1,0 +1,38 @@
+{{define "content"}}
+{{if .IsFrontpage}}<h3>Find your subject</h3>{{else}}<h1>Subjects</h1>{{end}}
+<br />
+<form method="get" action="{{.Action}}" class="row g-2 mb-3">
+  <div class="col-auto">
+    <input type="text" name="q" class="form-control" placeholder="Search" value="{{.Query}}">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+<table class="table">
+  <tr>
+    <th>Subject</th>
+    {{if .IsSuperAdmin}}<th colspan="2"></th>{{end}}
+  </tr>
+  {{range .Subjects}}
+  <tr>
+    <td><a href="/subjects/{{.ID}}">{{.Name}}</a></td>
+    {{if $.IsSuperAdmin}}
+    <td><a href="/subjects/{{.ID}}/edit" class="btn btn-warning btn-sm">Edit</a></td>
+    <td>
+      <form method="post" action="/subjects/{{.ID}}/delete">{{$.CSRFField}}
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Destroy</button>
+      </form>
+    </td>
+    {{end}}
+  </tr>
+  {{else}}
+  <tr><td colspan="3">No subjects found.</td></tr>
+  {{end}}
+</table>
+
+{{template "pagination" .}}
+
+{{if .IsSuperAdmin}}<a href="/subjects/new">New Subject</a>{{end}}
+{{end}}

@@ -1,0 +1,47 @@
+{{define "content"}}
+<h1>{{if .Exam}}Editing Exam{{else}}New Exam{{end}}</h1>
+
+{{template "errors" .}}
+
+<form method="post" action="{{if .Exam}}/exams/{{.Exam.ID}}/update{{else}}/exams{{end}}" enctype="multipart/form-data">
+  {{.CSRFField}}
+  <div class="mb-3">
+    <label class="form-label" for="language">Language</label>
+    <select class="form-select" id="language" name="language">
+      {{$lang := .Exam.Language}}
+      <option value="Finnish" {{if eq $lang 0}}selected{{end}}>Finnish</option>
+      <option value="Swedish" {{if eq $lang 1}}selected{{end}}>Swedish</option>
+      <option value="English" {{if eq $lang 2}}selected{{end}}>English</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="date">Date</label>
+    <input type="date" class="form-control" id="date" name="date" value="{{.Exam.DateStr}}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="description">Description</label>
+    <input type="text" class="form-control" id="description" name="description" value="{{.Exam.Description}}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="author">Author</label>
+    <input type="text" class="form-control" id="author" name="author" value="{{.Exam.Author}}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="course_id">Course</label>
+    <select class="form-select" id="course_id" name="course_id" required>
+      {{$sel := .Exam.CourseID}}
+      <option value=""></option>
+      {{range .Courses}}
+      <option value="{{.ID}}" {{if eq $sel .ID}}selected{{end}}>{{.Name}}</option>
+      {{end}}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="files">Files (images, jpg/png)</label>
+    <input type="file" class="form-control" id="files" name="files" multiple accept="image/jpeg,image/png">
+    {{if .Exam}}<p class="form-text">Leave empty to keep the existing PDF.</p>{{end}}
+  </div>
+  <button type="submit" class="btn btn-primary">{{if .Exam}}Update{{else}}Create{{end}}</button>
+  {{if .Exam}}<a href="/exams/{{.Exam.ID}}" class="btn btn-link">Show</a>{{end}}
+</form>
+{{end}}

@@ -1,0 +1,12 @@
+{{define "content"}}
+<h1>{{.User.Organization}}</h1>
+
+<h3>Email</h3>
+<p>{{.User.Email}} {{if .User.IsSuperAdmin}}<span class="badge text-bg-dark">super admin</span>{{end}}</p>
+
+<h3>Subjects</h3>
+{{range .UserSubjects}}<p>{{.Name}}</p>{{end}}
+{{if not .UserSubjects}}<p>No subjects selected</p>{{end}}
+
+<a href="/users/{{.User.ID}}/edit" class="btn btn-primary">Edit</a>
+{{end}}

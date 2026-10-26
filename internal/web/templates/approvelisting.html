@@ -1,0 +1,40 @@
+{{define "content"}}
+<h1>Exams waiting for approval</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Course</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Exams}}
+    <tr>
+      <td>{{.LanguageStr}}</td>
+      <td>{{.DateStr}}</td>
+      <td>{{.Description}}</td>
+      <td>{{.Author}}</td>
+      <td>{{if .Course}}<a href="/courses/{{.Course.ID}}">{{.Course.Name}}</a>{{end}}</td>
+      <td>{{if .Rejected}}<span class="badge text-bg-danger">Rejected</span>{{else}}<span class="badge text-bg-warning">Pending</span>{{end}}</td>
+      <td class="d-flex gap-2">
+        <form method="post" action="/exams/{{.ID}}/approve">{{$.CSRFField}}
+          <button type="submit" class="btn btn-success btn-sm">Approve</button>
+        </form>
+        <form method="post" action="/exams/{{.ID}}/reject">{{$.CSRFField}}
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Reject this exam?')">Reject</button>
+        </form>
+        <a href="/exams/{{.ID}}" class="btn btn-outline-secondary btn-sm">Show</a>
+      </td>
+    </tr>
+    {{else}}
+    <tr><td colspan="7">Nothing waiting for approval. Nice!</td></tr>
+    {{end}}
+  </tbody>
+</table>
+{{end}}

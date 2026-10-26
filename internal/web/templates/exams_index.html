@@ -1,0 +1,31 @@
+{{define "content"}}
+<h1>Listing Exams</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Exams}}
+    <tr>
+      <td>{{.LanguageStr}}</td>
+      <td>{{.DateStr}}</td>
+      <td>{{.Description}}</td>
+      <td>{{.Author}}</td>
+      <td><a href="/exams/{{.ID}}">Show</a></td>
+    </tr>
+    {{else}}
+    <tr><td colspan="5">No exams available</td></tr>
+    {{end}}
+  </tbody>
+</table>
+
+<br>
+<a href="/exams/new">New Exam</a>
+{{end}}

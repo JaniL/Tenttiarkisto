@@ -1,0 +1,31 @@
+{{define "content"}}
+<h1>{{if .Course}}Edit{{else}}New{{end}} Course</h1>
+
+{{template "errors" .}}
+
+<form method="post" action="{{if .Course}}/courses/{{.Course.ID}}/update{{else}}/courses{{end}}">
+  {{.CSRFField}}
+  <div class="mb-3">
+    <label class="form-label" for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{if .Course}}{{.Course.Name}}{{end}}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="identifier">Identifier</label>
+    <input type="text" class="form-control" id="identifier" name="identifier" value="{{if .Course}}{{.Course.Identifier}}{{end}}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="subject_id">Subject</label>
+    <select class="form-select" id="subject_id" name="subject_id" required>
+      {{range .Subjects}}
+      <option value="{{.ID}}" {{if $.SelSubject}}{{$sel := eq $.SelSubject .ID}}{{if $sel}}selected{{end}}{{end}}>{{.Name}}</option>
+      {{end}}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="keywords">Keywords</label>
+    <input type="text" class="form-control" id="keywords" name="keywords" value="{{if .Course}}{{.Course.Keywords}}{{end}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="/courses" class="btn btn-link">Back</a>
+</form>
+{{end}}

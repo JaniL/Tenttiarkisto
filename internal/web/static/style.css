@@ -1,0 +1,98 @@
+/* Ported from the Rails application (navs.scss / style.scss) to plain CSS. */
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background-color: #fafafa;
+  padding-top: 118px;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+main .container {
+  background-color: #fafafa;
+  padding-bottom: 80px;
+}
+
+.navbar-upper {
+  background: #0b3d63;
+  padding: 0.25rem 0;
+}
+.navbar-upper .navbar-brand,
+.navbar-upper .nav-link,
+.navbar-upper .btn-link {
+  color: #fff;
+}
+.navbar-upper .navbar-brand:hover,
+.navbar-upper .nav-link:hover {
+  color: #ddd;
+}
+.navbar-upper .btn-link {
+  padding: 0.5rem 1rem;
+}
+.navbar-brand img.hyy-logo {
+  display: inline-block;
+  height: 32px;
+  margin-right: 6px;
+}
+
+.navbar-sub {
+  margin-top: 48px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0.5rem 0;
+  left: 0;
+  right: 0;
+}
+.navbar-sub h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.navbar-sub .btn-add {
+  background: #0b3d63;
+  color: #fff;
+}
+.navbar-sub .btn-add:hover {
+  background: #12538c;
+  color: #fff;
+}
+
+.jumbotron {
+  background: url("/static/hy.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  padding: 4rem 0;
+  margin-top: 84px;
+  margin-bottom: 1rem;
+}
+
+footer {
+  background: #0b3d63;
+  color: #ddd;
+  padding: 2rem 0;
+}
+footer .footer-header {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+footer a {
+  color: #fff;
+}
+footer img.sponsored {
+  max-width: 120px;
+}
+footer img.tekis-logo {
+  max-width: 100px;
+}
+
+table .btn-default {
+  border: 1px solid #ddd;
+}
